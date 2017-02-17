@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../partials/header.ejs %>
+</head>
+<body>
+    <% include ../partials/nav.ejs %>
+    
+    <br />
+    <div class="content">
+        <h2 class="content-head is-center">Profile</h2>
+
+        <div class="pure-g">
+            <div class="l-box-lrg pure-u-1 pure-u-md-2-5">
+                <form class="pure-form pure-form-stacked">
+                    <fieldset>
+
+                        <label for="name">Your Name</label>
+                        <input id="name" type="text" placeholder="Your Name">
+
+
+                        <label for="email">Your Email</label>
+                        <input id="email" type="email" placeholder="Your Email">
+
+                        <label for="password">Your Password</label>
+                        <input id="password" type="password" placeholder="Your Password">
+
+                        <button type="submit" class="pure-button">Sign Up</button>
+                    </fieldset>
+                </form>
+            </div>
+
+            <div class="l-box-lrg pure-u-1 pure-u-md-3-5">
+                
+                <p>
+                    Badges
+                    <ul>
+                        <li>Badge 1</li>
+                        <li>Badge 2</li>
+                        <li>Badge 3</li>
+                    </ul>
+                </p>
+
+                
+            </div>
+        </div>
+
+    </div>
+
+    <% include ../partials/footer.ejs %>
+
+</div>
+</body>
+</html>

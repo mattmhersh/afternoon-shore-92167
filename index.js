@@ -14,6 +14,10 @@ app.get('/', function(request, response) {
   response.render('pages/index')
 });
 
+app.get('/profile', function(request, response) {
+  response.render('pages/profile')
+});
+
 app.get('/cool', function(request, response) {
   response.send(cool());
 });
