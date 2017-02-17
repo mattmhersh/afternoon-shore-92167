@@ -1,10 +1,14 @@
 var cool = require('cool-ascii-faces');
 var express = require('express');
+var shrinkRay = require('shrink-ray')
 var app = express();
 
 app.set('port', (process.env.PORT || 5000));
 
 app.use(express.static(__dirname + '/public'));
+
+// compress all requests
+app.use(shrinkRay())
 
 // views is directory for all template files
 app.set('views', __dirname + '/views');
@@ -32,7 +36,7 @@ app.get('/times', function(request, response) {
 
 app.get('/mdb', function(request, response){
 
-	var mongoose = require('mongoose');    
+	var mongoose = require('mongoose');
 
 	var uri = 'mongodb://heroku_fdlmfnrq:c6ti573b1nncp2c7qig0s0ecff@ds153689.mlab.com:53689/heroku_fdlmfnrq';
 
@@ -80,7 +84,7 @@ app.get('/mdb', function(request, response){
 	  });
 
 	  /*
-	   * First we'll add a few songs. Nothing is required to create the 
+	   * First we'll add a few songs. Nothing is required to create the
 	   * songs collection; it is created automatically when we insert.
 	   */
 	  var list = [seventies, eighties, nineties]
@@ -90,7 +94,7 @@ app.get('/mdb', function(request, response){
 	   * Then we need to give Boyz II Men credit for their contribution
 	   * to the hit "One Sweet Day".
 	   */
-	  Song.update({ song: 'One Sweet Day'}, { $set: { artist: 'Mariah Carey ft. Boyz II Men'} }, 
+	  Song.update({ song: 'One Sweet Day'}, { $set: { artist: 'Mariah Carey ft. Boyz II Men'} },
 	    function (err, numberAffected, raw) {
 
 	      if (err) return handleError(err);
@@ -105,7 +109,7 @@ app.get('/mdb', function(request, response){
 
 	        docs.forEach(function (doc) {
 	          console.log(
-	            'In the ' + doc['decade'] + ', ' + doc['song'] + ' by ' + doc['artist'] + 
+	            'In the ' + doc['decade'] + ', ' + doc['song'] + ' by ' + doc['artist'] +
 	            ' topped the charts for ' + doc['weeksAtOne'] + ' straight weeks.'
 	          );
 	        });
@@ -122,7 +126,7 @@ app.get('/mdb', function(request, response){
 	      });
 	    }
 	  )
-	});	
+	});
 
 	response.send("Hello World");
 });
