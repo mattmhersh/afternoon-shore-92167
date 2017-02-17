@@ -3,9 +3,19 @@ var express = require('express');
 var shrinkRay = require('shrink-ray')
 var app = express();
 
+app.disable('x-powered-by');
 app.set('port', (process.env.PORT || 5000));
 
-app.use(express.static(__dirname + '/public'));
+//app.use(express.static(__dirname + '/public'));
+
+app.use(express.static(__dirname + '/public', {
+        maxAge: 86400000,
+        setHeaders: function(res, path) {
+            res.setHeader("Expires", new Date(Date.now() + 2592000000*30).toUTCString());
+          }
+    }));
+
+//app.use(express.favicon(__dirname + '/public/favicon.ico', { maxAge: 2592000000 }));
 
 // compress all requests
 app.use(shrinkRay())
