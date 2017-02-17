@@ -5,73 +5,39 @@
 </head>
 <body>
     <% include ../partials/nav.ejs %>
-    
     <br />
     <div class="content">
         <h2 class="content-head is-center">Profile</h2>
-
         <div class="pure-g">
             <div class="l-box-lrg pure-u-1 pure-u-md-2-5">
                 <form class="pure-form pure-form-stacked">
                     <fieldset>
-
                         <label for="name">Your Name</label>
                         <input id="name" type="text" placeholder="Your Name">
-
-
                         <label for="email">Your Email</label>
                         <input id="email" type="email" placeholder="Your Email">
-
                         <label for="password">Your Password</label>
                         <input id="password" type="password" placeholder="Your Password">
-
                         <button type="submit" class="pure-button">Sign Up</button>
                     </fieldset>
                 </form>
             </div>
-
             <div class="l-box-lrg pure-u-1 pure-u-md-3-5">
-                
-                <p>
-                    Badges
-                    <ul>
-                        <li>Badge 1</li>
-                        <li>Badge 2</li>
-                        <li>Badge 3</li>
-                    </ul>
-                </p>
-
-                
-        <div class="purge-g">
-            <form class="pure-form pure-form-stacked">   
-            <p>First name: <input data-bind='value: firstName' /></p> 
-            <p>Last name: <input data-bind='value: lastName' /></p> 
-            <h2>Hello, <span data-bind='text: fullName'> </span>!</h2>  
-            </form>
-        </div>
-        <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.1/knockout-min.js'></script>
-        <script type='text/javascript'>
-        // Here's my data model
-        var ViewModel = function(first, last) {
-            this.firstName = ko.observable(first);
-            this.lastName = ko.observable(last);
-         
-            this.fullName = ko.computed(function() {
-                // Knockout tracks dependencies automatically. It knows that fullName depends on firstName and lastName, because these get called when evaluating fullName.
-                return this.firstName() + " " + this.lastName();
-            }, this);
-        };
-         
-        ko.applyBindings(new ViewModel("Planet", "Earth")); // This makes Knockout get to work
-        </script>
+          
+              <h4>Badges</h4>
+                <ul data-bind="foreach: people">
+                    <li>
+                        Name at position <span data-bind="text: $index"> </span>:
+                        <span data-bind="text: name"> </span>
+                        <a href="#" data-bind="click: $parent.removePerson">Remove</a>
+                    </li>
+                </ul>
+                <button data-bind="click: addPerson">Add</button>
 
             </div>
         </div>
-
     </div>
-
     <% include ../partials/footer.ejs %>
-
 </div>
 </body>
 </html>
