@@ -42,6 +42,29 @@
                 </p>
 
                 
+        <div class="purge-g">
+            <form class="pure-form pure-form-stacked">   
+            <p>First name: <input data-bind='value: firstName' /></p> 
+            <p>Last name: <input data-bind='value: lastName' /></p> 
+            <h2>Hello, <span data-bind='text: fullName'> </span>!</h2>  
+            </form>
+        </div>
+        <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.1/knockout-min.js'></script>
+        <script type='text/javascript'>
+        // Here's my data model
+        var ViewModel = function(first, last) {
+            this.firstName = ko.observable(first);
+            this.lastName = ko.observable(last);
+         
+            this.fullName = ko.computed(function() {
+                // Knockout tracks dependencies automatically. It knows that fullName depends on firstName and lastName, because these get called when evaluating fullName.
+                return this.firstName() + " " + this.lastName();
+            }, this);
+        };
+         
+        ko.applyBindings(new ViewModel("Planet", "Earth")); // This makes Knockout get to work
+        </script>
+
             </div>
         </div>
 
