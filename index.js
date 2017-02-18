@@ -195,7 +195,7 @@ var options = {
   cert: fs.readFileSync(path.join(__dirname, './keys/spdy-cert.pem')),
 };
 var http2Server = http2.createServer(options,app);
-http2Server.listen(443,function(){
+http2Server.listen(80,function(){
   console.log("Express HTTP/2 server started");
 });
 
