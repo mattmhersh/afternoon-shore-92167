@@ -3,15 +3,19 @@ var express = require('express');
 var shrinkRay = require('shrink-ray');
 var http2 = require('http2');
 
-
 var app = express();
 
-require('express-http2-workaround')({ express:express, http2:http2, app:app });
+//require('express-http2-workaround')({ express:express, http2:http2, app:app });
+
+var expressHTTP2Workaround = require('express-http2-workaround');
+
 
 app.disable('x-powered-by');
 app.set('port', (process.env.PORT || 5000));
 
 //app.use(express.static(__dirname + '/public'));
+
+app.use(expressHTTP2Workaround({ express:express, http2:http2 }));
 
 app.use(express.static(__dirname + '/public', {
         maxAge: 86400000,
