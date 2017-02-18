@@ -1,7 +1,12 @@
 var cool = require('cool-ascii-faces');
 var express = require('express');
-var shrinkRay = require('shrink-ray')
+var shrinkRay = require('shrink-ray');
+var http2 = require('http2');
+
+
 var app = express();
+
+require('express-http2-workaround')({ express:express, http2:http2, app:app });
 
 app.disable('x-powered-by');
 app.set('port', (process.env.PORT || 5000));
