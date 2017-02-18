@@ -183,11 +183,13 @@ app.get('/db', function (request, response) {
 });
 
 
+/*
 // Setup HTTP/1.x Server
 var httpServer = http.Server(app);
 httpServer.listen(5000,function(){
   console.log("Express HTTP/1 server started");
 });
+*/
 
 // Setup HTTP/2 Server
 var options = {
@@ -195,8 +197,8 @@ var options = {
   cert: fs.readFileSync(path.join(__dirname, './keys/spdy-cert.pem')),
 };
 var http2Server = http2.createServer(options,app);
-http2Server.listen(80,function(){
-  console.log("Express HTTP/2 server started");
+http2Server.listen(app.get('port'),function(){
+  console.log('Node app is running on port', app.get('port'));
 });
 
 /*
