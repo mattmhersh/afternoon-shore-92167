@@ -1,8 +1,12 @@
 var cool = require('cool-ascii-faces');
 var express = require('express');
 var shrinkRay = require('shrink-ray');
+var http2 = require('http2');
+
 
 var app = express();
+
+require('express-http2-workaround')({ express:express, http2:http2, app:app });
 
 app.disable('x-powered-by');
 app.set('port', (process.env.PORT || 5000));
@@ -27,7 +31,7 @@ app.set('view engine', 'ejs');
 
 app.get('/*', function (req, res, next) {
 
-  //res.setHeader("Content-Encoding", "br");
+//  res.setHeader("Content-Encoding", "br");
 
   if (req.url.indexOf("/images/") === 0 || req.url.indexOf("/stylesheets/") === 0) {
     res.setHeader("Cache-Control", "public, max-age=2592000");
