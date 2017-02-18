@@ -191,6 +191,7 @@ httpServer.listen(5000,function(){
 });
 */
 
+/*
 // Setup HTTP/2 Server
 var options = {
   key: fs.readFileSync(path.join(__dirname, './keys/spdy-key.pem')),
@@ -200,12 +201,12 @@ var http2Server = http2.createServer(options,app);
 http2Server.listen(app.get('port'),function(){
   console.log('Node app is running on port', app.get('port'));
 });
+*/
 
-/*
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
-*/
+
 
 /*
 var options = {
