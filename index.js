@@ -3,22 +3,26 @@ var express = require('express');
 var shrinkRay = require('shrink-ray');
 var http2 = require('http2');
 var spdyPush = require('spdy-referrer-push');
+var fs = require('fs');
+var http = require('http');
+path = require('path');
+var spdy = require('spdy');
 
 var app = express();
 
 //require('express-http2-workaround')({ express:express, http2:http2, app:app });
 
-//var expressHTTP2Workaround = require('express-http2-workaround');
+var expressHTTP2Workaround = require('express-http2-workaround');
 
 
 app.disable('x-powered-by');
 app.set('port', (process.env.PORT || 5000));
 
-app.use(spdyPush.referrer());
+//app.use(spdyPush.referrer());
 
 //app.use(express.static(__dirname + '/public'));
 
-//app.use(expressHTTP2Workaround({ express:express, http2:http2 }));
+app.use(expressHTTP2Workaround({ express:express, http2:http2 }));
 
 app.use(express.static(__dirname + '/public', {
         maxAge: 86400000,
@@ -178,6 +182,43 @@ app.get('/db', function (request, response) {
   });
 });
 
+
+// Setup HTTP/1.x Server
+var httpServer = http.Server(app);
+httpServer.listen(5000,function(){
+  console.log("Express HTTP/1 server started");
+});
+
+// Setup HTTP/2 Server
+var options = {
+  key: fs.readFileSync(path.join(__dirname, './keys/spdy-key.pem')),
+  cert: fs.readFileSync(path.join(__dirname, './keys/spdy-cert.pem')),
+};
+var http2Server = http2.createServer(options,app);
+http2Server.listen(443,function(){
+  console.log("Express HTTP/2 server started");
+});
+
+/*
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
+*/
+
+/*
+var options = {
+  key: fs.readFileSync(path.join(__dirname, './keys/spdy-key.pem')),
+  cert: fs.readFileSync(path.join(__dirname, './keys/spdy-cert.pem')),
+};
+
+spdy.createServer(options, app).listen(app.get('port'), function() {
+  console.log('Node app is running on port', app.get('port'));
+});
+*/
+
+/*
+spdy.createServer(options, function(req, res) {
+  res.writeHead(200);
+  res.end('hello world!');
+}).listen(443);
+*/
